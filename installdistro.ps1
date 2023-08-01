@@ -92,6 +92,7 @@ switch ($distro) {
         wsl -t $wslname
         wsl -d $wslname -u root bash -ic "./wsl/bash/sudoNoPasswd.sh $username"
         wsl -d $wslname -u $username bash -ic "./wsl/bash/prepare.sh $username"
+        wsl -d $wslname -u $username bash -ic "runAnsipansi"
         Remove-Item $Env:windir\temp\wslprep\$wslname.zip
     }
 }
