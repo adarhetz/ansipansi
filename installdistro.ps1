@@ -91,7 +91,7 @@ switch ($distro) {
         wsl -d $wslname -u root bash -ic "./wsl/bash/createUser.sh $username ubuntu"
         wsl -t $wslname
         wsl -d $wslname -u root bash -ic "./wsl/bash/sudoNoPasswd.sh $username"
-        wsl -d $wslname -u $username bash -ic "./wsl/bash/prepare.sh"
+        wsl -d $wslname -u $username bash -ic "./wsl/bash/prepare.sh $username"
         Remove-Item $Env:windir\temp\wslprep\$wslname.zip
     }
 }
