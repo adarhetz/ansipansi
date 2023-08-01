@@ -16,3 +16,7 @@ virtualEnvEntry=". \"\${HOME}/.virtualenvs/${virtualEnvName}/bin/activate\""
 modifyBashrc "${virtualEnvEntry}" "${virtualEnvEntry}"
 
 ( . "${HOMEDIR}/.virtualenvs/${virtualEnvName}/bin/activate" && pip install ansible )
+
+runFunctionName='runAnsipansi'
+runFunction="runAnsipansi() { . \${HOME}/.virtualenvs/${virtualEnvName}/bin/activate && ansible-playbook '$( realpath "${DIR_ME}/../ansible/playbook.yaml")'; }"
+modifyBashrc "${runFunctionName}" "${runFunction}"
