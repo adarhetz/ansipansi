@@ -20,3 +20,7 @@ modifyBashrc "${virtualEnvEntry}" "${virtualEnvEntry}"
 runFunctionName='runAnsipansi'
 runFunction="runAnsipansi() { . \${HOME}/.virtualenvs/${virtualEnvName}/bin/activate && ansible-playbook '$( realpath "${DIR_ME}/../ansible/playbook.yaml")'; }"
 modifyBashrc "${runFunctionName}" "${runFunction}"
+
+modifyBashrc "SSH_ENV" "SSH_ENV=\"\$HOME/.ssh/agent-environment\""
+modifyBashrc 'start_agent(' 'start_agent() { echo "Initialising new SSH agent ..."; /usr/bin/ssh-agent | sed "s/^echo/#echo/" > "${SSH_ENV}"; echo "... succeeded!"; chmod 600 "${SSH_ENV}"; . "${SSH_ENV}" > /dev/null; }'
+modifyBashrc 'start_agent;' 'if [ -f "${SSH_ENV}" ]; then . "${SSH_ENV}" > /dev/null; ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || { start_agent; }; else start_agent; fi'
